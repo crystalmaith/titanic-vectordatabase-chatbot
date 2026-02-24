@@ -21,7 +21,7 @@ import numpy as np
 import requests
 import streamlit as st
 
-import faiss
+
 from sentence_transformers import SentenceTransformer
 
 # ─────────────────────────── Page config ────────────────────────────────────
