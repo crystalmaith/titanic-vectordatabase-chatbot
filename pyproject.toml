@@ -15,3 +15,6 @@ dependencies = [
 
 [tool.streamlit]
 script = "app_deploy.py"
+
+[project.scripts]
+app = "uvicorn app:app --host 0.0.0.0 --port 8000"
