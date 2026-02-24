@@ -1,0 +1,15 @@
+[project]
+name = "titanic-explorer"
+version = "1.0.0"
+description = "Titanic Dataset Explorer with Coast & Calm Theme"
+dependencies = [
+    "streamlit>=1.33.0",
+    "pandas>=2.2.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "numpy>=1.26.0",
+    "requests>=2.31.0"
+]
+
+[tool.streamlit]
+script = "app_deploy.py"
