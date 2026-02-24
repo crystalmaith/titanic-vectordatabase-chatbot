@@ -20,7 +20,7 @@ import seaborn as sns
 import numpy as np
 import requests
 import streamlit as st
-import openai
+
 import faiss
 from sentence_transformers import SentenceTransformer
 
