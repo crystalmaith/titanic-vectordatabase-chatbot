@@ -20,9 +20,9 @@ import seaborn as sns
 import numpy as np
 import requests
 import streamlit as st
-
-
-
+import openai
+import faiss
+from sentence_transformers import SentenceTransformer
 
 # ─────────────────────────── Page config ────────────────────────────────────
 st.set_page_config(
