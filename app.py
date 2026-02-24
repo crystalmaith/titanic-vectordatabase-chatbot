@@ -11,7 +11,7 @@ import io
 import sys
 import pickle
 from typing import List, Tuple
-
+from sentence_transformers import SentenceTransformer
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
@@ -22,7 +22,7 @@ import requests
 import streamlit as st
 
 
-from sentence_transformers import SentenceTransformer
+
 
 # ─────────────────────────── Page config ────────────────────────────────────
 st.set_page_config(
