@@ -1,102 +1,49 @@
-# 🌊 Titanic Chat Agent — Coast & Calm
+# ⚓ Titanic Vector Explorer — Coast & Calm
 
-A beautiful Titanic dataset explorer built with Streamlit + FastAPI + LangChain, themed around the **Coast & Calm** brand palette.
+A semantic RAG chatbot powered by OpenAI embeddings + GPT-4o, themed with the **Coast & Calm** palette.
 
-## Palette
-| Name | Hex |
-|---|---|
-| Ocean Deep Blue | `#5D768B` |
-| Warm Sandy Beige | `#C8B39B` |
-| Ivory Breeze | `#FBEFE5` |
+## Architecture
 
----
+```
+titanic.csv
+    │
+    ▼
+Document Builder  →  418 passenger rows  +  ~20 aggregate stat chunks
+    │
+    ▼
+OpenAI text-embedding-3-small  →  NumPy matrix (in-memory vector store)
+    │
+    ▼ (at query time)
+Cosine Similarity Retrieval (top-8 chunks)
+    │
+    ▼
+GPT-4o  →  Grounded natural-language answer
+```
 
-## 🚀 Quick Start (Streamlit Only)
-
-The Streamlit app works standalone (no API key needed) with a built-in rule-based analysis engine.
+## Run Locally
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
----
+1. Enter your OpenAI API key in the sidebar
+2. Click **Build Vector DB** (one-time embedding, ~30s)
+3. Ask anything!
 
-## 🧠 Full LangChain Mode (FastAPI + Claude)
+## Deploy to Streamlit Cloud
 
-### 1. Start the FastAPI backend
-```bash
-uvicorn backend:app --reload --port 8000
-```
+1. Push to GitHub
+2. Go to share.streamlit.io → New app → select `app.py`
+3. Done! Users enter their own API key in the UI
 
-### 2. Start Streamlit
-```bash
-streamlit run app.py
-```
+## Example Questions
 
-### 3. Configure in UI
-- Toggle **"Use FastAPI Backend"** in the sidebar
-- Enter your **Anthropic API Key**
-- The backend URL defaults to `http://localhost:8000`
-
----
-
-## ☁️ Deploy to Streamlit Community Cloud
-
-1. Push this folder to a **GitHub repo**
-2. Go to [share.streamlit.io](https://share.streamlit.io) → **New app**
-3. Select the repo, branch, and set **Main file: `app.py`**
-4. In **Advanced settings → Secrets**, add:
-   ```toml
-   ANTHROPIC_API_KEY = "sk-ant-..."
-   ```
-5. Click **Deploy** — your app will be live in ~2 minutes!
-
-> **Note**: For full LangChain agent mode on Streamlit Cloud, you also need to deploy the FastAPI backend separately (e.g., on Railway, Render, or Fly.io) and update the Backend URL in the sidebar.
-
----
-
-## 📁 Project Structure
-
-```
-titanic_agent/
-├── app.py              # Streamlit frontend
-├── backend.py          # FastAPI + LangChain agent
-├── titanic.csv         # Dataset
-├── requirements.txt
-├── README.md
-└── .streamlit/
-    └── config.toml     # Theme (Coast & Calm colours)
-```
-
----
-
-## 💬 Example Questions
-
-- "What percentage of passengers were male?"
-- "Show me a histogram of passenger ages"
-- "What was the average ticket fare?"
-- "How many passengers embarked from each port?"
-- "Show survival rate by gender"
-- "Show a pie chart of passenger classes"
-
----
-
-## 🏗️ Architecture
-
-```
-User → Streamlit (app.py)
-          │
-          ├── Built-in engine (no API key needed)
-          │
-          └── FastAPI (backend.py)
-                    │
-                    └── LangChain ReAct Agent
-                              │
-                              ├── get_basic_stats tool
-                              ├── query_dataframe tool
-                              ├── plot_histogram tool
-                              ├── plot_bar tool
-                              ├── plot_survival_by_group tool
-                              └── plot_pie tool
-```
+- "What was the survival rate for women vs men?"
+- "Who paid the most expensive ticket?"
+- "Show a histogram of passenger ages"
+- "How many passengers embarked from Southampton?"
+- "Tell me about the youngest passenger"
+- "What % survived in first class vs third class?"
+- "Show survival rate by gender as a bar chart"
+- "What was the average fare for each class?"
